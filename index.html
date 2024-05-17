@@ -1,0 +1,1684 @@
+Menu
+72KB PHP snippet created on May 17, 2024. This file is private.
+
+<!DOCTYPE html>
+	<html>
+		<head>
+			<?php
+                        $subaName='SKYWAYS AIR SERVICES PVT. LTD. 128 & 129-A, Mahipalpur Extension,'
+                                . 'Rd Number 4, N.H.8, New Delhi, DELHI-110037,'
+                                . 'INDIA';
+                        $iata_code='14-3-0152';
+                        $accounting_info='FREIGHT PRE-PAID';
+                        $AirportDep='DELHI';
+                        $currency='INR';
+                        $hawb_date=date('d/m/Y',strtotime($template_data_pickup_items_house[0]['invoice_date']));
+                        $pp='P';
+                        $cc='';
+                        $qauntity=0;
+                         $qauntity_total=0;
+                        $weight=0;
+                        $length=0;
+                        $breadth=0;
+                        $height=0;
+                        $qauntitys=$weights=$lengths=$heights=$breadths=$factor=0;
+                        $volu=0;
+                        $dims='';
+                        foreach($template_data_pickup_items as $ke=>$val){
+                            $qauntity_total+=floatval($val['quantity']);
+                           $qauntity=floatval($val['quantity']);
+                            $qauntitys+=floatval($val['quantity']);
+                            $weight=floatval($val['weight']);
+                            $weights+=floatval($val['weight']);
+                            $length=floatval($val['length']);
+                            $lengths+=floatval($val['length']);
+                           $height=floatval($val['height']);
+                            $heights+=floatval($val['height']);
+                            $breadth=floatval($val['breadth']);
+                            $breadths+=floatval($val['breadth']);
+                           $volu+=round(($length*$breadth*$height/5000),2)*$qauntity;
+                            $dims.=number_format($length).'X'.number_format($breadth).'X'.number_format($height).'/'.number_format($qauntity).'(CMS)'.'<br>';
+                        }
+                        $template_data[0]['volumetric_weight'] = $volu;
+                        //print_r(($lengths*$breadths*$heights/5000)*$qauntitys); die;
+                        $ByCarrier=(isset($template_data_pickup_items_house[0]['first_carrier'])) ? $template_data_pickup_items_house[0]['first_carrier']:'';
+                        $accounting_information=(isset($template_data_pickup_items_house[0]['accounting_information'])) ? $template_data_pickup_items_house[0]['accounting_information']:'';
+                        $handling_infromation=(isset($template_data_pickup_items_house[0]['handling_infromation'])) ? $template_data_pickup_items_house[0]['handling_infromation']:'AS AGREED';
+                        $quantity_of_good=(isset($template_data_pickup_items_house[0]['quantity_of_good'])) ? $template_data_pickup_items_house[0]['quantity_of_good']:'';
+                        $invoice_no=(isset($template_data_pickup_items_house[0]['invoice_no'])) ? $template_data_pickup_items_house[0]['invoice_no']:'';
+                        $iec_no=(isset($template_data_pickup_items_house[0]['iec_no'])) ? $template_data_pickup_items_house[0]['iec_no']:'';
+                        $hsncode=(isset($template_data_pickup_items_house[0]['hsncode'])) ? $template_data_pickup_items_house[0]['hsncode']:'';
+//for($i=1; $i<=1; $i++) { //=====old code for task sub:"Request for Additional provision in HAWB copy in HIKE"(05-07-2021)====
+for($i=1; $i<=4; $i++) { //=====new code for task sub:"Request for Additional provision in HAWB copy in HIKE"(05-07-2021)====
+?>
+                    
+<style>
+body{font-family:Arial, Helvetica, sans-serif; font-size:13px;}
+.font9px{font-size:9px;}
+.font10px{font-size:10px;}
+.font11px{font-size:11px;}
+.font12px{font-size:12px;}
+.font13px{font-size:13px;}
+.font14px{font-size:14px;}
+.font15px{font-size:15px;}
+.font18px{font-size:18px;}
+.font20px{font-size:20px;}
+.font22px{font-size:22px;}
+.font24px{font-size:24px;}
+
+.pad1px{padding:1px;}
+.pad2px{padding:2px;}
+.pad3px{padding:3px;}
+.pad4px{padding:4px;}
+.pad5px{padding:5px;}
+.pad6px{padding:6px;}
+.pad7px{padding:7px;}
+.pad8px{padding:8px;}
+.pad9px{padding:9px;}
+.pad10px{padding:10px;}
+
+
+.borderall{border:1px solid #000000;}
+.borderleft{border-left:1px solid #000000;}
+.borderright{border-right:1px solid #000000;}
+.bordertop{border-top:1px solid #000000;}
+.borderbottom{border-bottom:1px solid #000000;}
+
+.height10px{height:10px;}
+.height20px{height:20px;}
+.height30px{height:30px;}
+.height40px{height:40px;}
+.height50px{height:50px;}
+.height60px{height:60px;}
+
+
+
+.curve-border-slant {
+  
+    height: 21px;
+    border-bottom: 1px solid #000000;
+}
+
+.curve-border-slant1 {    width:50px;
+    height: 13px;
+    border-radius: 0px 0px 0px 0px;
+    position: relative;
+    border-bottom: 1px solid #000000;
+}
+.curve-border-slant:after {    display: block;
+    content:" ";
+    width: 60px;
+    height: 13px;
+    top: 1px;
+    background-color: #FFF;
+    position: absolute;
+    right: -7px;
+    transform:skewX(-45deg);
+    -ms-transform:skewX(45deg);
+    -webkit-transform:skewX(-45deg);
+    border-right: 1px solid #000000;
+	z-index:-1;
+}
+.curve-border-slant:before {    height: 13px;
+    width: 14px;
+    display: block;
+    content:" ";
+    /*background-color: #FFF;*/
+    position: absolute;
+    left: -13px;
+    top: 7px;
+	transform:skewY(227deg);
+    -ms-transform:skewY(227deg);
+    -webkit-transform:skewY(227deg);
+    border-top: 1px solid #000000;
+    border-left: 0px solid #000000;
+	border-right: 0px solid #000000;
+	border-bottom: 0px solid #000000;
+}
+.curve-border-slant2 {    width:50px;
+    height: 13px;
+    border-radius: 0px 0px 0px 0px;
+    position: relative;
+    border-bottom: 1px solid #000000;
+}
+</style>
+</head>
+<body>
+<!-- <div style="position:absolute;left:380px;top:540px;height:200px;width:400px;z-index:1000;padding:9px;font-size:11px;"><?php echo '';  ?></div>
+
+<div style="position:absolute;left:80px;top:570px;height:200px;width:400px;z-index:1000;padding:9px;font-size:11px;"><?php echo $OtherDescriptions; ?></div> -->
+<div style="width:900px;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-left:98px; margin-right:36px; padding-top:15px;">
+ <tbody><tr>
+ <td valign="top" height="2"></td></tr>
+ </tbody></table>
+ <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-left:98px; margin-right:36px;">
+   <tbody><tr>
+     <td width="6%" class=" " style="font-size:18px;font-weight:bold;"><?php  echo 'DEL'."-".$template_data[0]['airwaybilno']; ?></td>
+     <td width="29%" class=" " style="font-size:18px;font-weight:bold;"><?php if($PrintHawb==1) { echo $template_data[0]['airwaybilno']; } ?></td>
+     <td width="20%" align="left"  class="" style="padding-right:9px;font-size:18px;font-weight:bold;"></td>
+     <td width="9%">&nbsp;</td>
+     <td width="45%" style="padding-right:13px;font-size:18px;font-weight:bold;" align="right">
+	 <!-- <?php 
+	
+	 $HNo = 'HAWB NO.-'. $template_data[0]['airwaybilno'];
+	 echo $HNo; 
+	
+	 ?> -->
+    </td>
+   </tr>
+ </tbody></table>
+ 
+ <table width="900" cellpadding="0" cellspacing="0" class="borderall" border="0" style="margin-left:98px; margin-right:36px;">
+<tr>
+  <td width="437" valign="top" class="borderbottom borderright font20px" height="121"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td width="50%" align="left" valign="top" class="font15px pad3px">Shipper's Name and Address</td>
+          <td align="center" class="borderleft borderbottom" ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tbody>
+                <tr>
+                  <td align="center" class="font15px">Shipper's Account Number</td>
+                </tr>
+                <tr>
+                  <td align="center" class="font15px pad3px" height="28"><strong>&nbsp;</strong></td>
+                </tr>
+              </tbody>
+          </table></td>
+        </tr>
+      </tbody>
+  </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td class="font13px pad3px"><?php echo $template_data[0]['client_name'].'<br>'.$template_data[0]['client_company_name'].'<br>'.$template_data[0]['client_address1'].'<br>'.$template_data[0]['client_state'].'<br>'.$template_data[0]['client_pincode'].'<br> Mobile No '.$template_data[0]['client_contact_no']; ?>             </td>
+          </tr>
+        </tbody>
+      </table></td>
+  <td  valign="top" class="borderbottom">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <tr>
+   <td width="22%">
+     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <tbody>
+   <tr>
+     <td  class="pad3px font13px" height="24">Not Negotiable</td>
+         </tr>
+   <tr>
+     <td  height="3"></td>
+   </tr>
+   <tr>
+     <td class="font15px pad3px" height="22"><strong>Air Waybill</strong></td>
+     
+   </tr>
+   <tr>
+     <td class="pad3px font15px" height="33">Issued by</td>      
+   </tr>
+   <tr>
+     <td colspan="2" height="3"></td>
+   </tr>
+ </tbody>
+</table>
+   
+   </td>
+   <td align="center"><img align="right" src="http://dev.skart-express.com/assets/images/icons/skyways_logo.jfif" width="113" height="90"></td>
+ </tr>
+</table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="bordertop pad3px font15px"  height="32" valign="middle">Copies 1, 2 and 3 of this Air Waybill are originals and have the same validity.</td>
+        </tr>
+      </tbody>
+    </table></td>
+</tr>
+<tr>
+  <td  valign="top" class="borderright borderbottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td width="50%" align="left" valign="top" class="font15px pad3px">Consignee's Name and Address</td>
+          <td align="center" class="borderleft borderbottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tbody>
+                <tr>
+                  <td class="font15px" align="center">Consignee's Account Number</td>
+                </tr>
+                <tr>
+                  <td class="font12px pad3px" align="center" height="25"><strong>&nbsp;</strong></td>
+                </tr>
+              </tbody>
+          </table></td>
+        </tr>
+      </tbody>
+  </table>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td class=" font13px pad3px"><?php echo $template_data[0]['consignee_first_name'].'<br>'.$template_data[0]['consignee_company_name'].'<br>'.$template_data[0]['delivery_address1'].'<br>'.$template_data[0]['delivery_address2'].','.$template_data[0]['delivery_city'].'<br>'.$template_data[0]['delivery_country_name'].'<br>'.$template_data[0]['delivery_zipcode'].'<br> Mobile No '.$template_data[0]['consignee_mobile_no']; ?> 
+                <!--	
+<strong>BERTLING PROJECTS LOGISTICS DMCC<br> UNIT NO: 2H-05-414/JEWELLRY &amp; GEMPLEX 2<br> PLOT NO:DMCC-PH2-J&amp;GPLEXS<br>
+DUBAI/UAE</strong>--></td>
+          </tr>
+        </tbody>
+      </table></td>
+  <td valign="top" class="borderbottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td class=" pad3px font13px" height="120" valign="top">It is agreed that the goods described herein are accepted in apparent good order and condition (except as noted) for carriage SUBJECT TO THE CONDITIONS OF CONTRACT ON THE REVERSE HEREOF. ALL GOODS MAY BE CARRIED BY ANY OTHER MEANS INCLUDING ROAD OR ANY OTHER CARRIER UNLESS SPECIFIC CONTRARY INSTRUCTIONS ARE GIVEN HEREON BY THE SHIPPER, AND SHIPPER AGREES THAT THE SHIPMENT MAY BE CARRIED VIA INTERMEDIATE STOPPING PLACES WHICH THE CARRIER DEEMS APPROPRIATE. THE SHIPPERS ATTENTION IS DRAWN TO THE NOTICE CONCERNING CARRIERS LIMITATION OF LIABILITY. Shipper may increase such limitation of liability by declaring a higher value for carriage and paying a supplemental charge if required.</td>
+      </tr>
+    </tbody>
+  </table></td>
+</tr>
+<tr>
+  <td valign="top" class="borderright borderbottom"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td height="12" valign="top" class="font15px pad3px">Issuing Carrier's Agent Name and City</td>
+      </tr>
+      <tr>
+        <td  valign="top" class="font13px pad3px"  height="60"><?php  if(!empty($subaName)) { echo strtoupper($subaName); }else{ echo $issueCarrierName; } ?></td>
+      </tr>
+    </tbody>
+  </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td width="50%" align="left" class="pad3px bordertop borderright font15px">Agent's IATA Code</td>
+          <td  align="left" class="pad3px bordertop font15px">Account No.</td>
+        </tr>
+        <tr>
+          <td class="pad3px borderright font13px"><?php echo $iata_code; ?></td>
+          <td align="left" class="font13px pad3px">&nbsp;</td>
+        </tr>
+      </tbody>
+    </table></td>
+  <td valign="top" class="borderbottom " height="120"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td class="font15px pad3px">Accounting Information</td>
+      </tr>
+      <tr>
+        <td class="font13px pad3px"><?php echo $accounting_info.'<br><br><br>'.$accounting_information; ?></td>
+      </tr>
+    </tbody>
+  </table></td>
+</tr>
+<tr>
+  <td  valign="top" class="borderright borderbottom" height="40">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+      <td class="font15px pad3px" align="left">Airport of Departure (Addr. of First Carrier) and Requested Routing</td>
+    </tr>
+    <tr>
+      <td class="font13px pad3px" align="left"><?php echo strtoupper($AirportDep); ?></td>
+    </tr>
+  </tbody></table>
+  </td>
+  <td  valign="top" class="borderbottom">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="25%" class="font15px" align="center">Reference Number </td>
+    <td width="51%" align="center">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                       <tbody>
+                         <tr>
+                           <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif"></td>
+                           <td  align="center" class="curve-border-slant font15px" >Optional Shipping Information</td>
+                           <td  align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif"></td>
+                         </tr>
+                       </tbody>
+                   </table>
+    </td>
+    <td width="24%"></td>
+  </tr>
+  <tr >
+    <td class="font10px pad3px" align="center">&nbsp;</td>
+     <td style="padding:0px 46px 0px 57px;" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td class="borderright borderleft font10px" height="20" align="center" >&nbsp;</td>
+  </tr>
+</tbody></table>
+    
+    </td>
+    <td class="font10px pad3px" align="center">&nbsp;</td>
+  </tr>
+</tbody></table>
+
+  </td>
+</tr>
+<tr >
+  <td  valign="top" class="borderright borderbottom font10px">
+<!--area complex-->
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td  align="left" valign="top" class="borderright font15px pad3px" width="50">to</td>
+    <td  width="62" align="left" valign="top" style="font-size:12px;padding1px">By First Carrier</td>
+    <td  align="center" valign="top" class="borderright" width="155">
+    
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:8px;">
+      <tbody>
+	  <tr>
+         <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td  height="10" align="center" class="curve-border-slant font10px" >Routing and Destination</td>
+         <td  align="left"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+       </tr>
+	   
+       </tbody></table>
+    
+    
+    </td>
+    <td width="50"  align="left" valign="top" class="font15px borderright pad3px">to</td>
+    <td  width="36" align="left" valign="top" class="font15px borderright pad3px">by</td>
+    <td  width="50" align="left" valign="top" class="font15px borderright pad3px">to</td>
+    <td  align="left" valign="top" class="font15px pad3px">by</td>
+  </tr>
+  <tr>
+    <td  class="borderright font13px pad1px" height="23" align="left"><?php echo $To; ?></td>
+    <td class="font13px pad3px" align="left"><?php echo $ByCarrier; ?></td>
+    <td class="borderright font13px pad1px" style="padding-left:10px;" align="left"></td>
+    <td class="borderright font13px pad1px" align="left"><?php echo $To1; ?></td>
+    <td class="borderright font13px pad1px" align="left"><?php echo $By1; ?></td>
+    <td class="borderright font13px pad1px" align="left"><?php echo $To2; ?></td>
+    <td class=" font13px pad3px" align="left"><?php echo $By2; ?></td>
+  </tr>
+</tbody></table>
+<!--area complex ends -->
+  
+  </td>
+  <td  valign="top" class="borderbottom" >
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="font-size:8px;">
+  <tbody><tr>
+    <td width="35%" rowspan="2" valign="top" class="borderright font10px">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td   class=" borderright borderbottom pad1px" align="center" style="font-size:12px;">Currency</td>
+        <td class=" borderright" style="font-size:12px;" align="center">CHGS<br>Code</td>
+        <td width="50" colspan="2" class=" borderright borderbottom" align="center" style="font-size:12px;">WT/VAL</td>
+        <td colspan="2" align="center" class=" borderbottom" align="center" style="font-size:12px;">Other</td>
+        </tr>
+      <tr>
+        <td class="borderright " style="font-size:12px;" align="center"></td>
+        <td class="  borderright" style="font-size:12px;"></td>
+        <td class="  borderright" style="font-size:12px;" align="center">PPD</td>
+        <td class="  borderright" style="font-size:12px;" align="center">CLT</td>
+        <td class="  borderright" style="font-size:12px;" align="center">PPD</td>
+        <td class=" " style="font-size:12px;" align="center">CLT</td>
+      </tr>
+      <tr>
+        <td class="borderright" align="center" style="font-size:10px;" valign="top"><?php echo $currency; ?></td>
+        <td class="borderright" align="center" style="font-size:10px;" ><?php echo $pp; ?></td>
+        <td class="borderright" align="center" style="font-size:10px;"><?php echo $pp; ?></td>
+        <td class="borderright" align="center" style="font-size:10px;"><?php echo $cc; ?></td>
+        <td class="borderright" align="center" style="font-size:10px;"><?php echo $pp; ?></td>
+        <td class="" align="center" style="font-size:10px;"><?php echo $cc; ?></td>
+      </tr>
+    </tbody></table></td>
+    <td align="center" width="30%" class="borderright font15px">Declared Value for Carriage</td>
+    <td class="font15px pad1px" width="30%" align="center">Declared Value for Customs</td>
+  </tr>
+  <tr>
+    <td class="borderright font15px pad1px" align="center"><?php echo $DecCarriage; ?></td>
+    <td class="font15px pad1px" align="center"><?php echo $DecCustom; ?></td>
+  </tr>
+</tbody></table>
+  
+  </td>
+</tr>
+<tr>
+<td  valign="top" class="borderright borderbottom">
+
+
+
+<table width="100%" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+  <td width="51%" class="borderbottom borderright"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td align="center" class="font15px">Airport of Destination</td>
+      </tr>
+      <tr>
+        <td class=" font13px pad3px" align="center" ><?php echo strtoupper($AirprtDest); ?></td>
+      </tr>
+    </tbody></table></td>
+  <td width="49%" valign="top">
+  
+  
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <tr> <td>  
+ <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       <tbody>	
+   
+<tr>
+        <td align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+        <td align="center"  width="50%" class="curve-border-slant font15px" >Requested Flight/Date</td>
+        <td  align="left"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+      </tr>
+      </tbody>
+      </table>
+ 
+ </td></tr>
+   <tr><td>
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+         <td width="50%" class="font13px borderright pad3px"  align="center" height="22"  style="padding:0px;"><?php echo $flightno; ?></td>
+         <td class="font13px pad3px" align="center"><?php echo $flightdate; ?></td>
+       </tr>
+</table>    
+   </td></tr>
+ </tr>
+</table>
+  </td>
+  </tr>
+  </tbody></table>
+
+</td>
+<td  valign="top" class="borderbottom">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="29%" valign="top" style="border-right:1px solid #000000;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td align="center" class="font15px">Amount of Insurance</td>
+      </tr>
+      <tr>
+        <td class="font15px pad3px" align="center"><strong><?php echo $AccountInsurence; ?></strong></td>
+      </tr>
+    </tbody></table></td>
+    <td class=" pad3px font15px" >INSURANCE - If carrier offers insurance, and such insurance is requested in accordance with the conditions thereof, indicate amount to be insured in figures in box marked "Amount of Insurance".</td>
+  </tr>
+</tbody></table>
+
+</td>
+</tr>
+<tr><td colspan="2" valign="top"  class=" borderbottom" >
+<table width="100%"  cellspacing="0" cellpadding="0">
+      <tr>
+        <td  class="font15px pad3px" valign="top">Handling Information</td>
+        <td   class="font10px pad1px" width="145" ><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif"  width="145" height="37"></td>
+      </tr>
+      <tr>
+        <td  class="font13px pad3px" valign="top"><?php echo $handling_infromation; ?></td>
+        <td >
+        
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                   <tr>
+              <td  align="center" class="borderleft bordertop font15px">SCI</td>
+            </tr>
+            <tr>
+              <td class="borderleft font13px pad3px" align="center" height="26"><strong>&nbsp;</strong></td>
+            </tr>
+        
+        </table>
+        
+        </td>
+      </tr>
+</table>
+</td>
+</tr>
+<tr>
+  <td colspan="2" valign="top" class=" ">
+  <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tbody >
+        <tr >
+      <td rowspan="2" align="center" class="font15px pad3px borderbottom borderright">No. of <br>Pieces </td>
+      <td rowspan="2" align="center" class="font15px pad3px borderbottom borderright">Gross <br>Weight</td>
+      <td rowspan="2" align="center" class="font15px  borderbottom borderright">kg <br> <br> 
+        lb</td>
+      <td rowspan="2" align="center" class="font10px  borderbottom borderright"><img src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif" alt="" width="5" height="20"></td>
+      <td colspan="2" align="left" class="font15px borderright pad3px">Rate Class</td>
+      <td rowspan="2" align="center" class="font10px  borderbottom borderright"><img src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif" alt="" width="5" height="20"></td>
+      <td rowspan="2" align="center" class="font15px pad3px borderbottom borderright">Chargeable <br>
+        Weight</td>
+      <td rowspan="2" align="center" class="font10px  borderbottom borderright"><img src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif" alt="" width="5" height="20">
+	  </td>
+      <td rowspan="2" align="center" class="font10px pad3px borderbottom borderright"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="background:url(http://dev.skart-express.com/assets/images/icons/ims-trans-angular-lline.gif) no-repeat center center;">
+	 <tr>
+	   <td align="left" class="font15px pad3px" style="padding-left:20px;">Rate</td>
+	 </tr>
+	 <tr>
+	   <td align="right" class="font15px pad3px" style="padding-right:10px;">Charges</td>
+	 </tr>
+	</table>
+	</td>
+      <td rowspan="2" align="center" class="font10px  borderbottom borderright"><img src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif" alt="" width="5" height="20"></td>
+      <td rowspan="2" align="center" class="font15px pad3px borderbottom borderright">Total</td>
+      <td rowspan="2" align="center" class="borderright"><img src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif" width="5" height="20"></td>
+      <td rowspan="2" align="center" class="font15px pad3px borderbottom">Nature and Quantity of Goods <br>
+        (incl. Dimensions or Volume)</td>
+    </tr>
+    <tr>
+      <td align="center" class="font10px  borderbottom borderright" >&nbsp;</td>
+      <td align="center" class="font15px borderbottom borderright bordertop">Commodity<br>Item No.</td>
+    </tr>
+    <tr>
+      <td width="48" align="center" valign="top" class="font13px pad3px borderright" height="240"><strong><?php  echo $qauntity_total; ?></strong></td>
+      <td width="88" align="center" valign="top" class="font13px pad3px borderright"><?php echo $template_data[0]['actual_weight']; ?></td>
+      <td width="10" align="center"   valign="top" class="font13px  borderright"><?php echo ($template_data[0]['weight_unit']=='kgs') ? 'K':'G'; ?></td>
+      <td width="10" align="center" valign="top" class="font13px borderright">&nbsp;</td>
+      <td width="12" align="center" valign="top" class="font13px borderright"><?php echo $RateClass; ?></td>
+      <td width="86" align="center" valign="top" class="font13px pad3px borderright">&nbsp;</td>
+      <td width="10" align="center" valign="top" class="font13px pad3px borderright">&nbsp;</td>
+      <td width="87" align="right" valign="top" class="font13px pad3px borderright" style="padding-right:10px;"><?php echo ($template_data[0]['volumetric_weight']>$template_data[0]['actual_weight']) ? $template_data[0]['volumetric_weight']:$template_data[0]['actual_weight']; ?></td>
+      <td  width="10" align="center" valign="top" class="font13px pad3px borderright"></td>
+      <td width="100" align="right" valign="top" class="font13px pad3px borderright" style="padding-right:10px;"><?php if($AsAgreed == 0){ echo $HAWBRate; } ?></td>
+      <td  width="10" align="center" valign="top" class="font13px pad3px borderright">&nbsp;</td>
+      <td width="148" align="right" valign="top" class="font13px pad3px borderright" style="padding-right:10px;"> <strong> <?php 
+	  
+	  if(empty($AsAgreed) || $AsAgreed == 0)
+	  { 
+	  //$CharWt = !empty($ChargableWt) ? $ChargableWt : 0;
+	  //$HRate = !empty($HAWBRate) ? $HAWBRate : 0;
+	  
+	  $FreightAmt = 'AS AGREED'; 
+	  echo $FreightAmt;  
+      } 
+	  ?></strong></td>
+      <td    width="10" align="center" valign="top" class="font11px pad3px borderright">&nbsp;</td>
+      <td  align="center" valign="top" class="font11px pad3px "><?php echo $template_data[0]['product_description'].'<br> QTY: '.$quantity_of_good.'<br>INV DATE  '.date('d.m.Y',strtotime($template_data[0]['invoice_date'])).'<br> INV NO : '.$invoice_no.'<br> IEC NO : '.$iec_no.'<br> HSN CODE: '.$hsncode.'<br><br><br><br><br><br> DIMS IN CMS: <br>'.$dims.'<br> VOL WT: '.number_format($template_data[0]['volumetric_weight'],2).' KGS'; ?>
+	  
+	 </td>
+    </tr>
+	
+	
+
+<?php 
+//if($AsAgreed == 0){
+//$AccInfo=(new \yii\db\Query())->select(['freight'])->from('air_export_job_details')->where(['job_id' => $job_id])->one();
+//if(!empty($AccInfo))
+//{
+//if($AccInfo['freight'] == 1)
+//{
+//  $FreightAmt = $Totalfreight;
+//  $ptotal_wtChr = $FreightAmt;
+//  $pCarrAmt     = $totalCarrAmt;
+//  $pAgentAmt    = $totalAgentAmt;
+//  $pvaluationamt = $totalVALUATIONAmt;
+//  
+//  $pTotalAMT = str_replace(",","", $ptotal_wtChr) + str_replace(",","", $pCarrAmt) + str_replace(",","", $pAgentAmt) + str_replace(",","", $pvaluationamt);
+//  
+//}else if($AccInfo['freight'] == 2){
+//
+//  $FreightAmt = $Totalfreight;
+//  $ctotal_wtChr = $FreightAmt;
+//  $cCarrAmt     = $totalCarrAmt;
+//  $cAgentAmt    = $totalAgentAmt;
+//  $cvaluationamt= $totalVALUATIONAmt;
+//  
+//  $cTotalAMT = str_replace(",","", $ctotal_wtChr) + str_replace(",","", $cCarrAmt) + str_replace(",","", $cAgentAmt) + str_replace(",","", $cvaluationamt);
+//}  
+//}	
+//}
+?>
+
+
+   <tr>
+      <td height="40" width="48" align="center" class="font10px pad3px bordertop" style="border-right:1px solid #000000;"><strong><?php echo $qauntity_total; ?></strong></td>
+      <td height="40"  width="88" align="center" class="font10px pad3px borderright bordertop"><?php echo $template_data[0]['actual_weight']; ?></td>
+      <td height="40" width="10" class="font10px pad3px borderright"><img src="http://dev.skart-express.com/assets/images/icons/ims-trans.gif" alt="" width="3" height="20"></td>
+      <td  width="10" class="font10px borderright"></td>
+      <td  width="12" class="font10px pad3px borderright">&nbsp;</td>
+      <td  width="86" height="40" class="font10px pad3px borderright"></td>
+      <td  width="10" class="font10px pad3px borderright"></td>
+      <td  width="87" height="40" class="font10px pad3px borderright"></td>
+      <td  width="10" class="font10px pad3px borderright"></td>
+      <td  width="100" height="40" class="font10px pad3px borderright"></td>
+      <td  width="10" class="font10px pad3px borderright"></td>
+      <td  width="148" height="40" class="font13px pad3px borderright bordertop" align="right" style="padding-right:10px;"><?php echo !empty($FreightAmt) ? $FreightAmt : ''; ?></td>
+      <td  width="10" class="font10px pad3px borderright"></td>
+      <td height="40"  class="font10px pad3px "></td>
+    </tr>
+  
+  </tbody></table>  -->
+   </td>
+</tr>
+</tbody></table>
+<!-- Lower Part-->
+<table width="900" border="0" cellspacing="0" cellpadding="0" style="margin-left:98px; margin-right:36px;">
+  <tr>
+      <td width="38%" class="borderright borderleft borderbottom font10px">
+	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+	  <tr>
+         <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td  align="center" class="curve-border-slant font10px" >Prepaid</td>
+         <td align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+       </tr>
+        </tbody></table></td>
+    <td colspan="2">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+		<tr>
+         <td align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td  align="center" class="curve-border-slant font10px" >Weight Charge</td>
+         <td  align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+       </tr>
+	   
+        </tbody></table>    </td>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+		<tr>
+         <td align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td align="center" class="curve-border-slant font10px" >Collect</td>
+         <td  align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+       </tr>
+	   
+        </tbody></table></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="borderbottom font10px pad1px borderright" height="15" width="50%" align="center"><?php  echo !empty($ptotal_wtChr) ? $ptotal_wtChr : ''; ?></td>
+    <td colspan="2" class="borderbottom font10px pad1px" align="center"><?php echo !empty($ctotal_wtChr) ? number_format($ctotal_wtChr, 2) : ''; ?></td>
+    </tr>
+</tbody></table>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderbottom">
+		<tr><td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+			<tr>
+			 <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+			 <td colspan="2" width="60%" align="center" class="curve-border-slant font10px" >Valuation Charge</td>
+			 <td  align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+		   </tr></table></td></tr>
+		<tr>
+		<td width="50%" class="font10px borderright pad1px" height="15" align="center"><?php echo !empty($pvaluationamt) ? $pvaluationamt : ''; ?></td>
+		<td class="font10px pad1px" align="center"><?php echo !empty($cvaluationamt) ? $cvaluationamt : ''; ?></td>
+		</tr>
+	</table>	
+	 
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr><td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+			<tr>
+			 <td width="40%" align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+			 <td colspan="2" width="20%" align="center" class="curve-border-slant font10px" >Tax</td>
+			 <td width="40%" align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+		   </tr></table></td></tr>
+	<tr>
+	<td width="50%" class="font10px borderright pad1px" align="center" height="15">&nbsp;</td>
+	<td class="font10px pad1px" align="center">&nbsp;</td>
+	</tr>
+	</table>
+	 
+	  
+	  </td>
+   <td width="62%" valign="top" class="borderbottom borderright"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody>
+   <tr>
+        <td class="font10px pad3px">Other Charges</td>
+      </tr>
+      <tr>
+        <td class="font10px pad3px">
+            <!-- <?php echo $Allawbcharge; //." ".$SAATax; ?><br/><br/>
+		 <?php echo $CharrierCharges; //." ".$sTax; ?> -->
+		</td>
+      </tr>
+    </tbody></table></td>
+  </tr>
+  <tr><td valign="top"  class="borderright borderbottom borderleft">
+  
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderbottom">
+<tr><td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+		<tr>
+         <td width="20%" align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td colspan="2" width="60%" align="center" class="curve-border-slant font10px" >Total Other Charges Due Agent</td>
+         <td width="20%" align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+       </tr></table></td></tr>
+<tr>
+<td width="50%" class="font10px borderright pad1px" height="15" align="center"><?php echo !empty($pAgentAmt) ? $pAgentAmt : ''; ?></td>
+<td class="font10px pad1px" align="center"><?php echo !empty($cAgentAmt) ? $cAgentAmt : ''; ?></td>
+</tr>
+</table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderbottom">
+    <tr>
+      <td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td width="20%" align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+              <td colspan="2" width="60%" align="center" class="curve-border-slant font10px" >Total Other Charges Due Carrier</td>
+              <td width="20%" align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+            </tr>
+          </tbody>
+      </table></td>
+    </tr>
+    <tr>
+      <td width="50%" class="font10px borderright pad1px"  height="15" align="center"><?php echo !empty($pCarrAmt) ? $pCarrAmt : ''; ?></td>
+      <td class="font10px pad1px" align="center"><?php echo !empty($cCarrAmt) ? $cCarrAmt : ''; ?></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+   <tbody>
+     <tr>
+       <td width="50%" height="27" class="borderright font10px pad3px">&nbsp;</td>
+       <td >&nbsp;</td>
+     </tr>
+   </tbody>
+ </table>		
+ </td>
+ <td valign="top" class="borderbottom borderright" ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td class="font11px pad3px" valign="top">Shipper certifies that the particulars
+             on the face hereof are correct and that insofar as any part of the
+              consignment contains dangerous goods, such part is properly described by
+              name and is in proper condition for carriage by air according to the applicable
+               Dangerous Goods Regulations.</td>
+      </tr>
+	  <tr><td height="8"></td></tr>
+      <tr>
+        <td height="20" align="center" class="font11px "><strong>
+		<?php
+			if(!empty($saprintoption) && $printsaname==1) 
+			{	
+			 echo !empty($saname) ? $saname : 'SKYWAYS AIR SERVICES PVT. LTD.';
+			}else{
+			  echo 'SKYWAYS AIR SERVICES PVT. LTD.';
+			} 
+		?></strong></td>
+      </tr>
+      <tr>
+        <td  align="center" class="font10px pad3px"><table width="80%" border="0" cellspacing="0" cellpadding="0">
+	<tbody><tr>
+    <td align="center" style="border-top:1px dotted #cccccc;" class="font15px pad3px">Signature of Shipper or his Agent</td>
+  </tr>
+</tbody></table>
+</td>
+ </tr>
+    </tbody></table></td> </tr>
+    <tr>
+    <td valign="top" class="borderright borderleft">
+ 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="borderbottom">
+<tr><td width="50%" class="borderright ">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+ <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+ <td colspan="2" width="60%" align="center" class="curve-border-slant font15px" >Total Prepaid</td>
+ <td  align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+</tr></table>
+</td>
+<td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+ <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+ <td colspan="2" width="60%" align="center" class="curve-border-slant font15px" >Total Collect</td>
+ <td  align="left"><img align="left" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+</tr></table></td>
+</tr>
+<tr><td  class="font13px borderright pad1px" height="20" align="center"><?php echo !empty($pTotalAMT) ? number_format($pTotalAMT, 2) : ''; ?></td>
+<td class="font13px pad1px" align="center"><?php echo !empty($cTotalAMT) ? number_format($cTotalAMT, 2) : ''; ?></td>
+</tr>
+</table>
+     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+      <td width="50%" align="center" class="borderright ">
+      
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+	   <tr>
+         <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td  align="center" class="curve-border-slant font13px" >Currency Conversion Rates</td>
+         <td  align="left"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif"/></td>
+		 </tr>
+		 
+		 
+      <tr>        
+       <td colspan="3"  align="center" class="font13px pad1px" height="15">&nbsp;</td>       
+     </tr>    
+   </table>
+      </td>
+      <td  align="center">&nbsp;</td>
+      </tr>
+      </tbody></table>
+     
+      
+      </td>
+    <td class=" borderright"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td height="4"></td>
+      </tr>
+      <tr>
+        <td align="center" class="font10px pad3px" height="20"><table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tbody><tr>
+            <td align="center" class="font13px pad3px"><strong><?php echo !empty($hawb_date) ? $hawb_date : ''; ?></strong></td>
+            <td align="center" class="font13px pad3px"><strong><?php
+	echo !empty($branchName) ? strtoupper($branchName) : 'DELHI'; ?></strong></td>
+            <td align="center" class="font13px pad3px"><strong><?php echo !empty($subagentName) ? strtoupper($subagentName) : ''; ?></strong></td>
+          </tr>
+          <tr>
+    <td style="border-top:1px dotted #cccccc;" width="22%" align="center" class="font15px pad3px">Executed on (date)</td>
+    <td style="border-top:1px dotted #cccccc;" width="18%" align="center" class="font10px pad3px">at (place)</td>
+    <td style="border-top:1px dotted #cccccc;" width="60%" align="center" class="font10px pad3px">Signature of Issuing Carrier or its Agent</td>
+  </tr>
+        </tbody></table></td>
+        </tr>
+    </tbody></table></td>
+  </tr>
+  <tr>
+ <td class="borderright borderleft borderbottom bordertop">
+ <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tbody><tr>
+        <td  align="center" width="50%" class="borderright font10px " height="20">For Carrier's Use only<br> at Destination</td>
+        <td align="center"  class="font10px">
+	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+	  <tr>
+         <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif" /></td>
+         <td  align="center" class="curve-border-slant font13px" >Charges at Destination</td>
+         <td  align="left"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif" /></td>
+	  </tr>
+		 
+		 
+      <tr>        
+       <td colspan="3"  align="center"  class="font12px pad1px">&nbsp;</td>       
+     </tr>    
+   </table>
+    </td>
+      </tr>  
+    </tbody></table></td>
+  <td class="bordertop">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td width="30%" align="center" class="borderright borderbottom">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr><td colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+		<tr>
+         <td  align="right"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-left.gif"/></td>
+         <td colspan="2"  align="center" class="curve-border-slant font13px" >Total Collect Charges</td>
+         <td align="left"><img align="right" src="http://dev.skart-express.com/assets/images/icons/ims-trans-slanted-line-right.gif"/></td>
+       </tr></table></td></tr>
+<tr>
+<td width="52%" colspan="2" class="font10px pad1px" align="center">&nbsp;</td>
+</tr>
+</table> 
+</td>
+
+<?php
+//=====new code for task sub:"Request for Additional provision in HAWB copy in HIKE"(05-07-2021)====
+if($i == 1) { ?>
+<td style="padding-left:10px;font-size: 10px;"><strong>1 ORIGINAL 3 (FOR SHIPPER)</strong></td>
+<?php }else if($i == 2) { ?>
+<td style="padding-left:10px;font-size: 10px;"><strong>2 ORIGINAL 2 (FOR CONSIGNEE)</strong></td>
+<?php }else if($i == 3) { ?>
+<td style="padding-left:10px;font-size: 10px;"><strong>3 DESTINATION COPY</strong></td>
+<?php }else if($i == 4) { ?>
+<td style="padding-left:10px;font-size: 10px;"><strong>4 DELIVERY COPY</strong></td>
+<?php }
+//=====new code for task sub:"Request for Additional provision in HAWB copy in HIKE"(05-07-2021)====
+?>
+
+
+<!-- <?php /*if($i == 1) { ?>
+<td style="padding-left:10px;"><strong>ORIGINAL 3 (FOR SHIPPER)</strong></td>
+<?php }else if($i == 2) { ?>
+<td style="padding-left:10px;"><strong>COPY 9 (FOR AGENT)</strong></td>
+<?php }else if($i == 3) { ?>
+<td style="padding-left:10px;"><strong>ORIGINAL 1 (FOR ISSUING CARRIER)</strong></td>
+<?php }else if($i == 4) { ?>
+<td style="padding-left:10px;"><strong>COPY 10 (EXTRA COPY FOR CARRIER)</strong></td>
+<?php }else if($i == 5) { ?>
+<td style="padding-left:10px;"><strong>ORIGINAL 2 (FOR CONSIGNEE)</strong></td>
+<?php }else if($i == 6) { ?>
+<td style="padding-left:10px;"><strong>COPY 4 (DELIVERY RECEIPT)</strong></td>
+<?php }else if($i == 7) { ?>
+<td style="padding-left:10px;"><strong>COPY 5 (FOR AIRPORT OF DESTINATION)</strong></td>
+<?php }else if($i == 8) { ?>
+<td style="padding-left:10px;"><strong>COPY 6 (FOR THIRD CARRIER)</strong></td>
+<?php } */?> -->
+
+</tr>
+</tbody></table>
+  </td>
+  </tr>  
+</table>
+</div>
+<div style="padding:0px 20px 0px 20px;">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <!--
+  <tr>
+    <td align="center"><img src="themes/ims/images/iata-logo-ims.jpg" width="70" height="70"/></td>
+  </tr>
+  -->
+  <tr>
+    <td align="center" height="10"></td>
+  </tr>
+  <!--
+    <tr>
+    <td align="center"  class="font12px" ><strong>NOTICE CONCERNING CARRIER\'S LIMITATION OF LIABILITY</strong></td>
+  </tr>
+  -->
+  <tr>
+    <td align="center" height="4"></td>
+  </tr>
+</table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <!--
+  <tr>
+    <td align="center"><img src="themes/ims/images/iata-logo-ims.jpg" width="70" height="70"/></td>
+  </tr>
+  -->
+  <tr>
+    <td align="center" height="10"></td>
+  </tr>
+  <!--
+    <tr>
+    <td align="center"  class="font12px" ><strong>NOTICE CONCERNING CARRIER\'S LIMITATION OF LIABILITY</strong></td>
+  </tr>
+  -->
+  <tr>
+    <td align="center" height="4"></td>
+  </tr>
+</table>
+
+<!--
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="font9px" style="text-align:justify;">If the carriage involves an ultimate destination or stop in a country other than the country of departure, the Montreal Convention or the Warsaw Convention may be applicable to the liability of the Carrier in respect of loss of, damage or delay to cargo. Carrier\'s limitation of liability in accordance with those Conventions shall be as set forth in subparagraph 4 unless a higher
+	value is declared.</td>
+  </tr>
+  <tr>
+    <td height="4"></td>
+  </tr>
+</table>
+-->
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+      <td align="center"  class="font12px" ><strong>CONDITIONS OF TRADING</strong></td>
+    </tr>
+    <tr>
+      <td align="center" height="10"></td>
+    </tr>
+  </table>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td valign="top">
+      <!-- Left cell starts -->
+      <!-- 1 -->
+      <table>
+          <tr>
+              <td>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">1.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td class="font9px">All and any business undertaken by this Company (Hereinafter called â€œthe Companyâ€�) is
+                    transacted subject to the conditions hereinafter set out and each and every conditions hereinafter
+                    set out shall be deemed to be conditions of any agreement between the company and its
+                    customers. The customerâ€™s acceptance of the Company offer or the Companyâ€™s acceptance
+                    of the customers offered implies acceptance of such conditions. Such conditions shall prevail
+                    in the event of any inconsistency between them and the customerâ€™s terms and conditions.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    <!-- 2 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">2.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        
+                      <tr>
+                        <td class="font9px">The company is not a Common Carrier (as defined by the carrier Act (1865) or a carrier within
+                    the meaning of anything contained in the carriage by Air Act., 1972. The Company renders
+                    service for consolidating several and/ or different Consignments for carriage by air by
+                    international airlines. The Company will issue its own airways bill in favor of the consignor for
+                    the goods entrusted it and it may agree or refuse to handle any goods of any person as its
+                    discretion.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    <!-- 3 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">3.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        
+                      <tr>
+                        <td class="font9px">In the performance of its duties the economy is hereby authorized by the customer to entrust
+                    the goods to and to employ the services of international Airlines abject to the later contractual
+                    terms and conditions of business and obtain an airway bill in its own name from international
+                    airlines for consolidated Cargo the customers shall be bound by such terms and conditions
+                    and shall indemnify the company against any claim which may arise therefrom.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    <!-- 4 -->
+                    
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">4.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        
+                      <tr>
+                        <td class="font9px">Customers entering in the transactions of any kind with the Company expressly warrant that
+                    they are either the owners or the duly authorized agents of the owners of any goods or property
+                    the subject matter of the transaction and by entering into the transaction they accept these
+                    conditions for themselves as well as for all other parties on whose behalf they are acting.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    <!-- 5 -->
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">5.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">Subject to express instructions in writing given by the customers the Company reserves to
+                    itself complete freedom In respect of means route and procedure to be followed in the handling,
+                    storage, consolidation and transportation of goods and the provision of its services</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    <!-- 6 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">6.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">The company is entitled to be paid and retain aII brokerages commissions allowances and
+                    other remunerations customarily retained by or paid to shipping Forwarding and Cargo agents
+                    and Insurance Brokers.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    <!-- 7 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">7.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">Quotations are given on the basis of the coat to the Company of performing the services
+                    required by the customers calculated at the rates then prevaifing and are subject to the right
+                    of withdrawal or revision by the Company. Any subsequent increase of such cost to the Company
+                    when services are performed (Including increases in the rates of carriage, freight, insurance
+                    premiums storage and any other cost whatsoever) shall be for the customers account.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    <!-- 8 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">8.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">The senders Owners and Consignees of any goods and their agents, if any shall be deemed
+                    to be bound by and to warrant the accuracy of all descriptions values and other particulars
+                    furnished to the Company for customs and other purposes & they undertake to indemnity the
+                    Company against all claims losses damages costs. Expenses and lines arising from any
+                    misnecaration inaccuracy or omissions.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    <!-- 9 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">9.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">The Company shall bot be liable under any circumstances for any less, damage or expense
+                    arising from or in any way connected with marks, weight, numbers, brands, contents, quality
+                    or description or any goods even if caused by the negligence of the Company its servants or
+                    agents.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    <!-- 10 -->
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">10.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">The Consignees Owners and Consignees and their agents if any, as the case may be shall
+                    be liable for any duty fax impact on outlays at whatsoever nature levied by the authority. at any
+                    part or place for or in connection with the goods and the consign or & the consignee shall
+                    indemnify the Company agents and payments fines, expense, less or damage incurred or
+                    sustained by the Company In connection therewith.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">11.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">No insurance will be effected by the Company on behalf of the consignor or consignee. The
+                    company shall not be under any obligation to ensure a separate Insurance on each consignment
+                    but may declare it or any open or general police.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">12.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">The Company shall not be liable for any loss of or damage to goods whatsoever unless such
+                    less or damage occurs whilst the goods are unless such loss or damage proved to be due to
+                    the willful neglect or default of the Company or its own servants. The company shall be liable
+                    for no other neglect or default or for any other matter or thing whatsoever.
+                    </td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">13.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">The Company shall not in any circumstances be liable for damages arising from less of market
+                    or other consequential losses or loss attributable to delay collecting or in forwarding or in
+                    transit or failure (net amounting to willful negligence.) To carry out the instructions given to
+                    it.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">14.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">In no case shall the liability of the company under condition No. 12 hereunder exceed the value
+                    of goods or a sum at the rate of Rs. 2000/- per ton at 20 ewt. of goods less or damaged which
+                    over shall be the smaller, in the case of furniture plate, china glass and household and personal
+                    affects of any kind the liability of the Company in respect of the a package shall be limited to
+                    Rs. 260/-.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">15.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">In the event of less or damage to the goods after they have been entrusted by the Company to
+                    the international Airlines for carriage by air as consolidate cargo, the liability if any shall be
+                    that of the carrier (International Airlines). Such liability shall be governed by the Carriage by
+                    Air Act 1972, the Company shall have no such liability at the consignor and the consignee.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">16.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">(a) In the case of carriage by air no special declaration of interest in delivery of destination
+                    to increase the Air Carriers liability under the Carriage by Air Act 1972 will be made by the
+                    Company.</td>
+                      </tr>
+                      
+                      <tr>
+                        <td class="font9px">(b) In all the cases where there is a choice of tariff rates according to the extent of the liability
+                    assumed by carriers warehousemen or other no declaration of value (whole optional) will be
+                    made for the purpose of extending liability , the goods will be forwarded or deal wrath at owners
+                    fist or other minimum charges.</td>
+                      </tr>
+                      
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                    
+                    
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td valign="top" class="font9px" width="10%">17.</td>
+                        <td style="text-align:justify;" >
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">	
+                      <tr>
+                        <td class="font9px">All b usiness of whatsoever nature, be it as agents or principal, with any party whatsoever,
+                    shall solely be conducted in accordance with ACAAI Standard Trading Conditions and/or
+                    FFFAI Standard Trading Conditions. These conditions have clauses which may limit or
+                    exclude our liability and a copy is available on request.</td>
+                      </tr>
+                      <tr>
+                        <td height="5"></td>
+                      </tr>  
+                    </table>
+                    </td>
+                      </tr>
+                    </table>
+                     
+                    <!-- ==========================================================================================  -->
+                    
+                    <!--Left Cell end -->
+                        </td>
+                        <!-- <td width="5%">&nbsp;</td> -->
+              </td>
+              <td>
+      <td valign="top">
+                      <!-- Right Cell starts-->
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">18.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">The Company will not accept consignments on a C.O.D. basis i.e. collection of value goods
+    of delivery.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">19.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">Payable goods which are not taken up immoderately upon arrival or which are insufficiently
+    addressed or marked or otherwise not unidentifiable may be sold or otherwise disposed at as
+    the goods fit without any notice to the consignors or consignees of the goods and payment
+    or tender by the Company at the net proceed of any sale after deduction at charges shall be
+    company. If any claims are made against the Comp any by third Parties (including its own
+    servants or agents) by reason of such sale or disposal the customers will indemnify the
+    Company against the same and against all losses costs and expenses incurred by the company
+    in connection therewith.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">20.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">Nonperishable goods which cannot be delivered either because they are insufficiently or
+    incorrectly addressed or because they are not collected or accept, by the Consignee may be
+    old or returned at the Companyâ€™s option at any time after the expiration of 21 days from the
+    date of notice in writing sent to the t known address of the customers. All charges and
+    expenses arising in connection with the sale or return of the goods shall be paid in advance
+    by the Consignor or demand. A communication from any agent or correspondent of the
+    company to the effect that the goods cannot be delivered for any reasons shall exclusive
+    evidence of that fact and shall accepted by the Consignors without by demur; Return of the
+    goods to the consignors or payments by the Company to the consignors of the net proceeds
+    of any sale after deduction of charges shall be a complete discharges of all responsibly on
+    the part of the Company if any claims are made against the Company by the Third
+    Parties(including its own servants or agents by reasons of such sale or return all losses
+    costs and expenses incurred by the Company in connection therewith.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">21.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">Except under special arrangements with the consignor previously agreed. To writing and
+    cleared by the Carrier the Company will not accept of deal with any goods which are in the
+    opinion of the Company, noxious, dangerous, hazardous or inflammable or explosive or likely
+    to cause damage in the event of any person delivering such goods to the Company or causing
+    the Company to handle or deal with any such goods (except under special arrangement
+    previously agreed in writing with the consignors and cleared by the carrier) the consignors
+    shall be liable for all loss or penalties claims damages costs and expenses arising in
+    connection the with and the goods maybe destroyed or otherwise deal with at the sale discretion
+    of the Company or any other person in those custody they may be at the relevant time amid the
+    consignors shall indemnity the company in manner aforesaid. The expression goods likely
+    to cause damage includes goods likely to harbor or incountrage vermin or other posts but
+    this shall in no way limit the generality of the said words.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">22.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">Except under special arrangements with the consignor previously agreed to in writing the
+    company will be except bullion, coins, precious stones, jewelry valuable exportable antiques,
+    pictures livestock or plants, and the Company will not accept any liability whatsoever for any
+    such goods except under such special arrangement and in no event shall the liability of the
+    Company exceed Rs.200/. per article (provided that in respect of bullion/and or coins the total
+    liability of the Company in respect of the whole quantity of such articles shall not exceed Rs.
+    200/-.)</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">23.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">Pending forwarding and delivery goods may be warehoused or otherwise stored or held at
+    any place at the sale discretion of the Company at the consignors expense. The Company
+    shall not liable for loss of whatever nature arising therefrom unless that loss is proved to have
+    been caused by the willfullneflect or default of the Company. its servants or agents. The
+    Consignors shall indemnity the company against any loss suffered by its as are of any claims
+    brought against it by Third Parties (including its own servants or agents) in connection with
+    the warehousing and strong of goods except where the loss giving rise to any such claim is
+    proved by the consignors to have been caused by the wi!lfullneglect or default of the Company,
+    its servants or agents.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">24.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">All goods (and documents relating .to goods) shall be subject to a line of the Company for
+    monies due to the Company either In respect of such goods or for any particular or general
+    balances or monies due tram the consignor, senders, owners, or, consignee to the Com pany,
+    if any monies due to the Company or not paid within one Calendar month after notice has been
+    given to the person tram whom the monies are due tat such goods are detained they may be
+    sold by auction or otherwise at the sold discretion of the Company by at the expenses of such
+    person and the proceeds applied in or towards the satisfaction of the Company lien If any
+    claim are made against the Company by the Third Parties (including its own servants or
+    agents) by reason of the exercise of its rights under this condition, the consignor will indemnity
+    the company against the same and all losses caused and expenses incurredâ€™ by the company
+    in Connection there with.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">25.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">The servants, employees and agents of the company shall be entitled to the benefit of all
+    provisions in three conditions which exclude or restrict Tetris liability of any kind. Further
+    more for the purposes only of countering the benefits of such provision upon the servants,
+    agents and employees of the Company: The Company hereby enters into the agreement with
+    the consignor on its own behalf and also as agent of its servants, employees and agents who
+    are such at the time of the agreement is made in any event the servants, employees and agent
+    of the Company are to be under greater liability then the Company itself. For acts of omissions
+    connected with the performs with the Companyâ€™s obligations.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">26.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">All agreements between the Company and its consignors shall be governed by Indian law
+    and with the exclusive Jurisdiction of the Courts only in that city where this
+    HAWB/DOCUMENT has been executed or at Delhi .</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+     
+     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">27.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">All goods presented to the Company shall be properly and securely packed and shall be in
+    such conditions as bot to caused or likely to caused any damage whatsoever. The Company
+    shall not be liable for any damage to the goods in any way attributable to the failure to pack
+    the goods in the manner aforesaid and consignor shall indemnity the Company against all
+    losses or claims or whatever nature arising out of or in any way connected with any damage
+    or injury resetting from the goods not being in such conditions as aforesaid.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td valign="top" class="font9px" width="8%">28.</td>
+        <td style="text-align:justify;" >
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="font9px">For carriage to which the Montreal Convention does not apply, Carrierâ€™s liability limitation for
+    cargo lost, damaged or delayed shall be 22 SDRs per kilogram unless a greater per kilogram
+    monetary limit is provided in any applicable Convention or in Carrierâ€™s tariffs or general
+    conditions of carriage.</td>
+      </tr>
+      <tr>
+        <td height="5"></td>
+      </tr>  
+    </table>
+    </td>
+      </tr>
+    </table>
+    
+    <!-- Right Cell ends-->
+    </td>
+      </tr>
+    </table>
+  
+</div>  
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    
+    <tr>
+        <td align="center"  class="font10px" >RESTRICTED AND PROHIBITED CARGO (AIR)</td>
+      </tr>
+      <tr>
+        <td align="center" height="10"></td>
+      </tr>
+    
+    <tr>
+        <td height="3"></td>
+      </tr>
+      <tr>
+        <td class="font9px bordertop" style="padding-top:4px;">It will appreciated that inherent characteristics certain commodities make it impossible for them to be carried by air without endangering the safety of aircraft passengers or crew. However some
+    goods of hazardous nature can be accepted for carriage providing the quantity is restricted to within given limits and packing confirm to specification laid down by international agreement. We
+    will be glad to advice you should you .have a consignment likely to be included in prohibited or restricted category. The Airlines agreement to except restricted cargo must be obtained before the
+    consignment is delivered. The following certificates in duplicate should accompany every consignment of restricted cargo â€œThis certify that the contents of this consignment are properly delivered
+    by name and are packed and marked and are in proper conditions for carriage by air according to the regulations relating to carriage of restricted articles published by (the Airlines concerned)
+    and otherwiseâ€™ comply with such regulations. This consignment is within the limitations prescribed for passenger carrying aircraft.</td>
+      </tr>
+       <tr>
+        <td align="center" height="10"></td>
+      </tr>
+      <tr>
+        <td align="center"  class="font9px" >The use of client own forms is no derogation of these conditions.</td>
+      </tr>
+      
+    </table>
+
+
+            </td>
+        </tr>
+    </table>
+	
+   
+<!-- 
+<?php
+//=====new code for task sub:"Request for Additional provision in HAWB copy in HIKE"(05-07-2021)====
+//include('notice-limitation-of-liability.php'); ?>
+<?php if($i < 4) { ?> -->
+<style>.pagebreak { page-break-before: always; }</style>
+<div class="pagebreak"> </div>
+<!-- <?php }
+//=====new code for task sub:"Request for Additional provision in HAWB copy in HIKE"(05-07-2021)====
+?>
+
+<?php /*if($i < 8) { ?> -->
+<style>.pagebreak { page-break-before: always; }</style>
+<div class="pagebreak"> </div>
+<?php } */?>
+<?php } ?>    
+</body>
+</html>
